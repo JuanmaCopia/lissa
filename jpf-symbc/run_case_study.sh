@@ -19,7 +19,6 @@ PACKAGE="heapsolving.${CLASS_NAME,,}"
 CONFIG_FOLDER="$SCRIPT_DIR/$SRC_FOLDER"
 PATH_CONFIG_FILE="${CONFIG_FOLDER}/${CLASS_NAME}.jpf"
 
-
 TARGET="${PACKAGE}.${METHOD,,}.${CLASS_NAME}Main"
 STRATEGY=${STRATEGY^^} # To upper case
 
@@ -29,12 +28,8 @@ sed -i -E "s/method.*/method = ${METHOD}/g" $PATH_CONFIG_FILE
 sed -i -E "s/heapsolving\.strategy.*/heapsolving\.strategy = $STRATEGY/g" $PATH_CONFIG_FILE
 sed -i -E "s/symbolic\.scope.*/symbolic\.scope = $SCOPE/g" $PATH_CONFIG_FILE
 
-
-finishedOK=false
+# Run JPF:
 java -Dfile.encoding=UTF-8 -Xms4096m -Xmx4096m -Xss100m -ea -cp $CP gov.nasa.jpf.tool.RunJPF $PATH_CONFIG_FILE
-if [ $? -eq 0 ]; then
-    finishedOK=true
-fi
 
 # Reset config file values
 TARGET="${PACKAGE}.METHOD.${CLASS_NAME}Main"
@@ -42,11 +37,3 @@ sed -i -E "s/target.*/target = $TARGET/g" $PATH_CONFIG_FILE
 sed -i -E "s/method.*/method = METHOD/g" $PATH_CONFIG_FILE
 sed -i -E "s/heapsolving\.strategy.*/heapsolving\.strategy = HEAP_SOLVING_STRATEGY/g" $PATH_CONFIG_FILE
 sed -i -E "s/symbolic\.scope.*/symbolic\.scope = MAX_SCOPE/g" $PATH_CONFIG_FILE
-
-
-if [ "$finishedOK" = false ] ; then
-    echo "TIMEOUT"
-    exit 42
-else
-    echo "OK"
-fi

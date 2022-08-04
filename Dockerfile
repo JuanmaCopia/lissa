@@ -8,6 +8,8 @@ RUN apt-get update -y
 RUN apt-get install -y build-essential
 RUN apt-get install -y git
 RUN apt-get install -y ant
+RUN apt-get install -y vim
+RUN apt-get install -y tree
 
 # Download java 8(!)
 RUN apt-get install -y openjdk-8-jdk

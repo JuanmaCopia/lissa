@@ -1,0 +1,19 @@
+classpath=${jpf-symbc}/build/examples
+sourcepath=${jpf-symbc}/src/examples
+
+# ---------------   Arguments   ---------------
+
+target = mystudycase.LinkedList
+method = remove
+
+symbolic.debug = false
+symbolic.scope = 4
+symbolic.dp = z3
+
+heapsolving.strategy = LISSA
+heapsolving.symsolve.class = mystudycase.symsolve.LinkedList
+heapsolving.symsolve.predicate = repOK
+
+listener = gov.nasa.jpf.symbc.heap.solving.HeapSolvingListener
+
+# ---------------------------------------------
