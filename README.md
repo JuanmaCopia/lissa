@@ -5,7 +5,7 @@ This is the artifact of the paper "LISSA: Lazy Initialization with Specialized S
 
 In summary, the artifact is composed by the developed solver SymSolve, a modified version of Java Symbolic Path Finder that make use of SymSolve, and the necessary scripts to reproduce the evaluation of the paper's case studies.
 
-The artifact can be obtained by cloning the following GitHub repository: https://github.com/JuanmaCopia/X
+The artifact can be obtained by cloning the following GitHub repository: https://github.com/JuanmaCopia/lissa
 
 For installation instructions refer to INSTALL.md
 
