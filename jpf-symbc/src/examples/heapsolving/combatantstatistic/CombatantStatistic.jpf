@@ -1,0 +1,19 @@
+classpath=${jpf-symbc}/build/examples
+sourcepath=${jpf-symbc}/src/examples
+
+# ---------------   Arguments   ---------------
+
+target = heapsolving.combatantstatistic.METHOD.CombatantStatisticMain
+method = METHOD
+
+symbolic.debug = false
+symbolic.scope = MAX_SCOPE
+symbolic.dp = z3bitvector
+
+heapsolving.strategy = HEAP_SOLVING_STRATEGY
+heapsolving.symsolve.class = heapsolving.combatantstatistic.symsolve.CombatantStatistic
+heapsolving.symsolve.predicate = repOK
+
+listener = gov.nasa.jpf.symbc.heap.solving.HeapSolvingListener
+
+# ---------------------------------------------

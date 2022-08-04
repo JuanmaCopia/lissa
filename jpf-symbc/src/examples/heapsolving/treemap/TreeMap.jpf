@@ -1,0 +1,19 @@
+classpath=${jpf-symbc}/build/examples
+sourcepath=${jpf-symbc}/src/examples
+
+# ---------------   Arguments   ---------------
+
+target = heapsolving.treemap.METHOD.TreeMapMain
+method = METHOD
+
+symbolic.debug = false
+symbolic.scope = MAX_SCOPE
+symbolic.dp = z3
+
+heapsolving.strategy = HEAP_SOLVING_STRATEGY
+heapsolving.symsolve.class = heapsolving.treemap.symsolve.TreeMap
+heapsolving.symsolve.predicate = repOK
+
+listener = gov.nasa.jpf.symbc.heap.solving.HeapSolvingListener
+
+# ---------------------------------------------

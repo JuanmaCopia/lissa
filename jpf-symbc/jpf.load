@@ -1,0 +1,4 @@
+export JPF=/home/juanmanuelcopia/Documents/imdea/new-spf-korat/jpf-core/
+export PATH=${JPF}/bin:$PATH
+
+

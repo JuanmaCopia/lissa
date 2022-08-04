@@ -1,0 +1,19 @@
+classpath=${jpf-symbc}/build/examples
+sourcepath=${jpf-symbc}/src/examples
+
+# ---------------   Arguments   ---------------
+
+target = heapsolving.schedule.METHOD.ScheduleMain
+method = METHOD
+
+symbolic.debug = false
+symbolic.scope = MAX_SCOPE
+symbolic.dp = z3
+
+heapsolving.strategy = HEAP_SOLVING_STRATEGY
+heapsolving.symsolve.class = heapsolving.schedule.symsolve.Schedule
+heapsolving.symsolve.predicate = repOK
+
+listener = gov.nasa.jpf.symbc.heap.solving.HeapSolvingListener
+
+# ---------------------------------------------

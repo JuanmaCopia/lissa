@@ -1,0 +1,23 @@
+classpath=${jpf-symbc}/build/examples
+sourcepath=${jpf-symbc}/src/examples
+
+# ---------------   Arguments   ---------------
+
+target = heapsolving.dictionaryinfo.METHOD.DictionaryInfoMain
+method = METHOD
+
+symbolic.debug = false
+symbolic.scope = MAX_SCOPE
+symbolic.dp = z3
+
+symbolic.strings = true
+symbolic.string_dp=z3-str
+symbolic.string_dp_timeout_ms=3000
+
+heapsolving.strategy = HEAP_SOLVING_STRATEGY
+heapsolving.symsolve.class = heapsolving.dictionaryinfo.symsolve.DictionaryInfo
+heapsolving.symsolve.predicate = repOK
+
+listener = gov.nasa.jpf.symbc.heap.solving.HeapSolvingListener
+
+# ---------------------------------------------

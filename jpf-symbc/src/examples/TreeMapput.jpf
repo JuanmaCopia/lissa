@@ -1,0 +1,27 @@
+classpath=${jpf-symbc}/build/examples
+
+sourcepath=${jpf-symbc}/src/examples
+
+
+# ================ Arguments ===================
+
+target=lissa.treemap.put.TreeMapput
+method = put
+technique = TECHNIQUE
+
+symbolic.debug = false
+symbolic.scope = INT
+symbolic.dp = z3
+
+symsolve.class = lissa.treemap.korat.TreeMap
+
+listener=gov.nasa.jpf.symbc.heap.solving.HeapSolvingListener
+vm.storage.class = nil
+
+# ================================================
+
+
+
+
+
+

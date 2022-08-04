@@ -1,0 +1,27 @@
+.hg
+.hgignore
+local.properties
+.version
+trace
+*.class
+*.orig
+*~
+*.DS_Store
+
+*.dat
+
+jpf-core/build/
+jpf-symbc/build/
+
+symsolve/.gradle/
+symsolve/build/
+
+jpf-symbc/output/
+
+*.csv
+*.txt
+
+# jpf-core/.settings/
+#   jpf-symbc/.settings/
+
+.project
