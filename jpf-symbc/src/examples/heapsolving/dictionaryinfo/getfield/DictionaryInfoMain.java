@@ -24,14 +24,16 @@ public class DictionaryInfoMain {
 			} catch (Exception e) {
 			}
 
-			// Property Assertion:
+			SymHeap.countPath();
+
+            // Property Assertion:
 			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
 				assert (structure.areTreesOK());
 			else if (SymHeap.usingSymSolveBasedStrategy()) {
 				assert (SymHeap.assertPropertyWithSymSolve("areTreesOK", structure));
 			}
 
-			SymHeap.countPath();
+
 		}
 	}
 

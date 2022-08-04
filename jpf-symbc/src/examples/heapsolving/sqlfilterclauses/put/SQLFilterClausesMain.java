@@ -26,7 +26,9 @@ public class SQLFilterClausesMain {
 			} catch (Exception e) {
 			}
 
-			// Property Assertion:
+			SymHeap.countPath();
+
+            // Property Assertion:
 			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
 				assert (structure.repOK());
 			else if (SymHeap.usingSymSolveBasedStrategy()) {
@@ -36,7 +38,7 @@ public class SQLFilterClausesMain {
 				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
 			}
 
-			SymHeap.countPath();
+
 		}
 	}
 

@@ -25,7 +25,9 @@ public class TransportStatsMain {
 			} catch (Exception e) {
 			}
 
-			// Property Assertion:
+			SymHeap.countPath();
+
+            // Property Assertion:
 			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
 				assert (structure.areTreesOK());
 			else if (SymHeap.usingSymSolveBasedStrategy()) {
@@ -34,7 +36,7 @@ public class TransportStatsMain {
 				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("areTreesOK", structure));
 			}
 
-			SymHeap.countPath();
+
 		}
 	}
 

@@ -29,7 +29,9 @@ public class TemplateMain {
 			} catch (Exception e) {
 			}
 
-			// Property Assertion:
+			SymHeap.countPath();
+
+            // Property Assertion:
 			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
 				assert (structure.repOK());
 			else if (SymHeap.usingSymSolveBasedStrategy()) {
@@ -39,7 +41,7 @@ public class TemplateMain {
 				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
 			}
 
-			SymHeap.countPath();
+
 		}
 	}
 
