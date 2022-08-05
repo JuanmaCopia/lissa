@@ -3,7 +3,7 @@
 - Docker
 - Tested on Linux and OSX Macs with Intel CPUs
 
-**Note:** Unfortunately the artifact does not work on Macs with Apple's new M1 line of CPUs (Symbolic Pathfinder is not able to find a Z3 library even when run in a Docker container).
+**Note:** Unfortunately the artifact does not work on Macs with Apple's new M1 line of CPUs (Symbolic Pathfinder is not able to find a Z3 library even when run inside a Docker container).
 
 # Getting Started
 
