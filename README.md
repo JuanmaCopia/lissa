@@ -6,7 +6,7 @@
 
 To favor reproducibility of the experiments and comparison with existing and future approaches, we release all the implementations as open source. The artifact can be obtained by cloning the following GitHub repository: https://github.com/JuanmaCopia/lissa.
 
-For instructions on installation, reproducing the experiments in the paper, and executing **LISSA** please refer to INSTALL.md.
+For instructions on installing and executing **LISSA**, and for reproducing the experiments in the paper, please refer to INSTALL.md.
 
 # References
 
