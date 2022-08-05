@@ -1,44 +1,52 @@
+# Requirements
 
+- Docker
+- Tested on Linux and OSX Macs with Intel CPUs
 
-## Getting Started
+**Note:** Unfortunately the artifact does not work on Macs with Apple's new M1 line of CPUs (Symbolic Pathfinder is not able to find a Z3 library even when run in a Docker container).
+
+# Getting Started
 
 Clone the repository:
 ```
 git clone https://github.com/JuanmaCopia/lissa
 ```
-
-Move to the cloned repository:
+Move to the recently created folder:
 ```
 cd lissa
 ```
 
-## Installation
+# Install
 
 Build the docker container:
 ```
 docker build -t lissa . 
 ```
-
-After the docker is build, run the docker container:
+Run the container:
 ```
 docker run -it lissa:latest /bin/bash
 ```
 
+# Replicating the experiments
 
-## Replicating the experiments
+# Running a single experiment
 
-
-To run specific experiments, run the run_study_case.sh script, with the following arguments:
+To easily run a single technique over a case study we provide the `run_study_case.sh` script. It takes the following arguments:
 ```
-bash run_study_case.sh <class_name> <method_name> <max_scope> <strategy>
+bash `run_study_case.sh` <class_name> <method_name> <max_scope> <strategy>
 ```
 
-For example: 
+For example, to analyze `TreeMap`'s `remove` method using `LISSA`, with up to a maximum of `4` nodes in the trees, execute: 
 ```
 bash run_case_study.sh TreeMap remove 4 LISSA
 ```
 
-The available methods per class are:
+The results are shown on the screen, and stored in CSV format in file: ```output/results<CLASS_NAME>-results.csv ```.
+
+
+# Structure
+
+The available classes and their corresponding methods (see Section 4 of the paper) are listed below:
 ```
 TreeMap : [put, remove, containsKey, containsValue]
 HashMap : [put, remove, containsKey, containsValue]
@@ -52,16 +60,14 @@ Template : [addParameter, getParameter]
 SQLFilterClauses : [put, get]
 ```
 
-The available techniques are:
+The available techniques (described in more detail in Section 4.1 of the paper) are:
 
-- LIHYBRID : It uses the automatically derived hybrid repOK to prune invalid lazy initialization steps.
-- IFREPOK : Eagerly concretizes all valid structures up to the provided bound by performing symbolic execution (with lazy initialization) of the repOK method before executing the target program.
-- DRIVER: Eagerly concretizes instances by performing symbolic execution (without lazy initialization) of insertion routines of the target structures.
-- LISSA: Our proposed solution that uses our solver SymSolve to prune invalid lazy initialization steps. It also has ENABLED the proposed symmetry breaking approach.
-- LISSAM: Same as LISSA, but using memoization (caching queries to SymSolve).
-- LISSANOSB: It uses SymSolve but with the proposed symmetry break approach DISABLED.
-
-
+- `LIHYBRID`: Traditional lazy initialization using an automatically derived `hybrid repOK` to identify and prune invalid lazy initialization steps.
+- `IFREPOK`: Eagerly concretizes all valid structures (up to the provided bound) by performing symbolic execution of the `repOK` method, before symbolic execution the target method.
+- `DRIVER`: Eagerly concretizes all valid structures (up to the provided bound) by performing symbolic execution of selected insertion routines from the target structures, before symbolic execution the target method.
+- `LISSA`: Our proposed approach that employs `SymSolve` to identify and prune invalid lazy initialization steps. Note that `LISSA` runs `SymSolve` with symmetry breaking enabled (see Section 3.3 of the paper).
+- `LISSAM`: `LISSA` + memoization approach (that caches the results of queries to SymSolve).
+- `LISSANOSB`: A `LISSA` version that runs `SymSolve` with symmetry breaking disabled (this configuration is used to answer RQ2 in Section 4.2 of the paper).
 
 To reproduce all the experiments for a specific case study one can run the following scripts: 
 ```
@@ -83,9 +89,7 @@ To run all experiments one can run:
 bash run_all.sh
 ```
 
-## Results
 
-The experiments results can be found in the folder ```jpf-symbc/output/results``` in a file with the following format: ``` <CLASS_NAME>-results.csv ``` and the standard output of the executions can be found at ```jpf-symbc/output/results```.
 
 ## Assertion of Postconditions
 
