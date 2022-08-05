@@ -1,11 +1,15 @@
-
 # LISSA
 
-This is the artifact of the paper "LISSA: Lazy Initialization with Specialized Solver Aid", accepted for ASE 2022. The artifact includes a modified version of the Symbolic (Java) Path Finder tool. The modifications implement the proposed approach to detect and prune spurious symbolic heap-allocated structures generated during lazy initialization. We developed a new solver, capable of deciding satisfiability of those symbolic structures, called SymSolve, whose source code is also included in this artifact. We use SymSolve to prune invalid lazy initialization steps generated during the symbolic execution of programs with heap-allocated inputs.
+**LISSA** (Lazy Initialization with Specialized Solver Aid) is an efficient symbolic execution approach for programs that manipulate complex heap-allocated data structures with rich structural constraints. This is the artifact for the paper "LISSA: Lazy Initialization with Specialized Solver Aid", accepted for publication in ASE 2022, that implements the **LISSA** approach. 
 
-In summary, the artifact is composed by the developed solver SymSolve, a modified version of Java Symbolic Path Finder that make use of SymSolve, and the necessary scripts to reproduce the evaluation of the paper's case studies.
+**LISSA**'s implementation is based on the symbolic execution engine of the **Symbolic (Java) PathFinder** tool [0]. **LISSA** employs a novel solver to detect and prune spurious partially symbolic structures generated during lazy initializations, called **SymSolve**. **SymSolve**'s implementation is based on the **Korat** bounded exhuastive test generation tool [1]. 
 
-The artifact can be obtained by cloning the following GitHub repository: https://github.com/JuanmaCopia/lissa
+To favor reproducibility of the experiments and comparison with existing and future approaches, we release all the implementations as open source. The artifact can be obtained by cloning the following GitHub repository: https://github.com/JuanmaCopia/lissa.
 
-For installation instructions refer to INSTALL.md
+For instructions on installation, reproducing the experiments in the paper, and executing **LISSA** please refer to INSTALL.md.
 
+# References
+
+[0] https://github.com/SymbolicPathFinder/jpf-symbc
+
+[1] http://korat.sourceforge.net
