@@ -1,9 +1,6 @@
 # Requirements
 
 - Docker
-- Tested on Linux and OSX Macs with Intel CPUs
-
-**Note:** Unfortunately the artifact does not work on Macs with Apple's new M1 line of CPUs (Symbolic Pathfinder is not able to find a Z3 library even when run inside a Docker container).
 
 # Getting Started
 
@@ -18,6 +15,8 @@ cd lissa
 
 # Install
 
+## Linux and OSX on Intel sillicon
+
 Build the docker container:
 ```
 docker build -t lissa . 
@@ -26,6 +25,26 @@ Run the container:
 ```
 docker run -it lissa:latest /bin/bash
 ```
+
+## OSX on Apple sillicon
+
+**Warning:** For `Symbolic Pathfinder` with the `Z3` solver (and thus `LISSA`) to run in Apple sillicon, a Docker container for the amd64 platform must be created. Thus, the container must be run in emulated mode in the Apple CPU, which might produce in a significant performance hit.
+
+Build the docker container (using `buildx` [0]):
+```
+docker buildx create --name amd64builder
+docker buildx use amd64builder
+docker buildx build --platform linux/amd64 -t lissa . --load
+```
+
+**Warning:** The creation of the container might hang. It worked for me after restarting the process a few times.
+
+Run the container:
+```
+docker run --platform linux/amd64 -it lissa:latest /bin/bash
+```
+
+[0] https://docs.docker.com/desktop/multi-arch/
 
 # Reproducing the experiments
 
