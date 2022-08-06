@@ -220,7 +220,7 @@ private void removeBuggy(Entry e) {
 }
 ```
 
-Let's call the new case study `mycasestudy`. In the following, we describe the four steps that need to be performed to analyze this code with `LISSA`. 
+Let's call the new case study `mycasestudy`. In the following, we describe the five steps that need to be performed to analyze this code with `LISSA`. 
 
 ### Step 1: Create a folder for the new case study, and copy the code to be analyzed to the folder
 
@@ -326,7 +326,7 @@ mycasestudy
 1 directory, 3 files
 ```
 
-### Compile the code and run LISSA
+### Step 5: Compile the code and run LISSA
 
 Compile the code with:
 ```
