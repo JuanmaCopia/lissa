@@ -15,7 +15,7 @@ cd lissa
 
 # Install
 
-## Linux and OSX on Intel sillicon
+## Recommended setup: Linux and OSX on Intel sillicon
 
 Build the docker container:
 ```
