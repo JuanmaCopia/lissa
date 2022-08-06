@@ -338,7 +338,7 @@ The output indicates that the assertion of `repOK` (postcondition) in the `main`
 
 # Implementation details of related approaches
 
-**Pablo: Lo de LISSA y SymSolve ya está explicado arriba en detalle. Acá habría que quitar todo el texto que habla de LISSA y SymSolve y dar un ejemplo de un main de un IFREPOK, un DRIVER y un lazy initialization común y corriente, y explicar que significa cada cosa en los mains. Esto lo ponemos al final porque los reviewers que no estén interesados lo pueden ignorar, y sólo evaluar reproducibilidad y usabilidad de lissa para poner las badges (creo que la mayoría va a hacer eso). O directamente se puede omitir esta parte si no llegamos con el tiempo.
+**Pablo: Lo de LISSA y SymSolve ya está explicado arriba en detalle. Acá habría que quitar todo el texto que habla de LISSA y SymSolve y dar un ejemplo de un main de un IFREPOK, un DRIVER y quizás hasta un LIHYBRID, y explicar que significa cada cosa en los mains. Esto lo ponemos al final porque los reviewers que no estén interesados lo pueden ignorar, y sólo evaluar reproducibilidad y usabilidad de lissa para poner las badges (creo que la mayoría va a hacer eso). O directamente se puede omitir esta parte si no llegamos con el tiempo.
 
 Below there is an example of the `main` method to perform symbolic execution of the `add` method from `LinkedList`:
 
