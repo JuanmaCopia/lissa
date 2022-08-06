@@ -15,7 +15,7 @@ cd lissa
 
 # Install
 
-## Recommended setup: Linux and OSX on Intel sillicon
+## Recommended setup: Linux and Mac OS X on Intel sillicon
 
 Build the docker container:
 ```
@@ -25,8 +25,9 @@ Run the container:
 ```
 docker run -it lissa:latest /bin/bash
 ```
+**Note:** The experiments in the paper were run on Intel sillicon.
 
-## OSX on Apple sillicon
+## Mac OS X on Apple sillicon
 
 **Warning:** For `Symbolic Pathfinder` with the `Z3` solver (and thus `LISSA`) to run in Apple sillicon, a Docker container for the amd64 platform must be created. Thus, the container must be run in emulated mode in the Apple CPU, which might produce in a significant performance hit.
 
