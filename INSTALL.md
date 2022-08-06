@@ -152,47 +152,6 @@ The `target` option indicates the class that contains the `main` method, that is
 
 All the case studies contains a "Harness" class, with the name ```<ClassName>Harness.java```. In this class, we simply manage the initial structure according to the specified heap solving technique. For example, if the DRIVER technique is being used, we call the driver's structure generator. **PABLO: Esto no se entiende. Hasta acá parecía que target tenía el main, y por lo tanto para mi el harness era el main. Hay que explicar mejor la relación entre `target` que dice arriba que tiene el `main` y harness. Ahora que llegue hasta el final me confunde mas esto porque si entendi bien no hay que definir un harness para correr LISSA. Si es para las otras tecnicas solamente hay que aclararlo.**
 
-<!-- 
-PABLO: Esto que comenté para mi no va. No agrega mucho porque el que quiere puede ver el codigo del main, y por otro lado complica demasiado el manual
-
-Below there is an example of the `main` method to perform symbolic execution of the `add` method from `LinkedList`:
-
-
-```
-public class LinkedListMain {
-
-	public static void main(String[] args) {
-		int key = SymHeap.makeSymbolicInteger("INPUT_KEY");
-
-		LinkedList structure = LinkedListHarness.getStructure();
-		if (structure != null) {
-			try {
-				// Call to method under analysis
-				structure.add(key);
-			} catch (Exception e) {
-			}
-
-			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.repOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the add method adds a new node, we need to use a finitization with
-				// increased size, "propertyCheckFinLinkedList" defined in
-				// heapsolving.linkedlist.symsolve.LinkedList
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
-			}
-
-		}
-	}
-}
-```
-
-Note that after the symbolic execution of the method, we perform the property assertion. In case the technique is based on SymSolve (LISSA, LISSAM and LISSANOSB), we check the property using SymSolve. In this example, as the method add increases the size of the structure by adding a new node, we use a finitization with a the scope increased by one node, to be able to correctly encode the structure. This finitization is defined in the same class as the other, in this case in ```heapsolving.linkedlist.symsolve.LinkedList```.
-
--->
-
 ## Running LISSA on a user provided method
 
 The easiest way to run `LISSA` for a user provided method is to copy the structure of an existing case study from folder `src/examples`. Let's say we want to a analyse the buggy `removeBuggy` method for `LinkedList` shown below:
@@ -375,3 +334,45 @@ elapsed time:       00:00:00
 ** PABLO: Actualizar con el output real, no lo puedo correr facilmente en mi PC nueva**
 
 The output indicates that the assertion of `repOK` (postcondition) in the `main` method fails, thus revealing the error in `removeBuggy`.
+
+
+# Implementation details of related approaches
+
+**Pablo: Lo de LISSA y SymSolve ya está explicado arriba en detalle. Acá habría que quitar todo el texto que habla de LISSA y SymSolve y dar un ejemplo de un main de un IFREPOK, un DRIVER y un lazy initialization común y corriente, y explicar que significa cada cosa en los mains. Esto lo ponemos al final porque los reviewers que no estén interesados lo pueden ignorar, y sólo evaluar reproducibilidad y usabilidad de lissa para poner las badges (creo que la mayoría va a hacer eso). O directamente se puede omitir esta parte si no llegamos con el tiempo.
+
+Below there is an example of the `main` method to perform symbolic execution of the `add` method from `LinkedList`:
+
+```
+public class LinkedListMain {
+
+	public static void main(String[] args) {
+		int key = SymHeap.makeSymbolicInteger("INPUT_KEY");
+
+		LinkedList structure = LinkedListHarness.getStructure();
+		if (structure != null) {
+			try {
+				// Call to method under analysis
+				structure.add(key);
+			} catch (Exception e) {
+			}
+
+			SymHeap.countPath();
+
+            // Property Assertion:
+			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
+				assert (structure.repOK());
+			else if (SymHeap.usingSymSolveBasedStrategy()) {
+				// Given that the add method adds a new node, we need to use a finitization with
+				// increased size, "propertyCheckFinLinkedList" defined in
+				// heapsolving.linkedlist.symsolve.LinkedList
+				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
+			}
+
+		}
+	}
+}
+```
+
+Note that after the symbolic execution of the method, we perform the property assertion. ~~In case the technique is based on SymSolve (LISSA, LISSAM and LISSANOSB), we check the property using SymSolve. In this example, as the method add increases the size of the structure by adding a new node, we use a finitization with a the scope increased by one node, to be able to correctly encode the structure. This finitization is defined in the same class as the other, in this case in ```heapsolving.linkedlist.symsolve.LinkedList```. ~~.
+
+
