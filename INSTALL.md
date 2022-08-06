@@ -31,7 +31,7 @@ docker run -it lissa:latest /bin/bash
 
 ## Running a single experiment
 
-**PABLO: Hay que cambiar run_study_case por run_case_study, y study case por case study, en todos lados. Nunca lei study case en ningun paper**
+**PABLO: Hay que cambiar run_study_case por run_case_study, y study case por case study, en todos lados. Estoy casi seguro que study case no existe (o al menos no se usa)**
 To easily run a single technique over a case study we provide the `run_study_case.sh` script. It takes the following arguments:
 ```
 bash `run_study_case.sh` <class_name> <method_name> <max_scope> <strategy>
