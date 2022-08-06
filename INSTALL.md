@@ -34,7 +34,7 @@ docker run -it lissa:latest /bin/bash
 **PABLO: Hay que cambiar run_study_case por run_case_study, y study case por case study, en todos lados. Estoy casi seguro que study case no existe (o al menos no se usa)**
 To easily run a single technique over a case study we provide the `run_study_case.sh` script. It takes the following arguments:
 ```
-bash `run_study_case.sh` <class_name> <method_name> <max_scope> <strategy>
+bash run_study_case.sh <class_name> <method_name> <max_scope> <strategy>
 ```
 
 For example, to analyze `LinkedList`'s `remove` method using `LISSA`, with up to a maximum of `4` nodes in the lists, execute: 
