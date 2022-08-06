@@ -29,7 +29,7 @@ docker run -it lissa:latest /bin/bash
 
 ## Mac OS X on Apple sillicon
 
-**Warning:** For `Symbolic Pathfinder` with the `Z3` solver (and thus `LISSA`) to run in Apple sillicon, a Docker container for the amd64 platform must be created. Thus, the container must be run in emulated mode in the Apple CPU, which might produce in a significant performance hit.
+**Warning:** For `Symbolic Pathfinder` with the `Z3` solver (and thus `LISSA`) to run in Apple sillicon, a Docker container for the amd64 platform must be created (an arm64 container did not work for me). Thus, the container must be run in emulated mode in the Apple CPU, which might produce in a significant performance hit.
 
 Build the docker container (using `buildx` [0]):
 ```
