@@ -51,7 +51,6 @@ docker run --platform linux/amd64 -it lissa:latest /bin/bash
 
 ## Running a single experiment
 
-**PABLO: Hay que cambiar run_case_study por run_case_study, y study case por case study, en todos lados. Estoy casi seguro que study case no existe (o al menos no se usa)**
 To easily run a single technique over a case study we provide the `run_case_study.sh` script. It takes the following arguments:
 ```
 bash run_case_study.sh <class_name> <method_name> <max_scope> <strategy>
@@ -168,9 +167,11 @@ The `run_case_study.sh` script modifies the configuration files accordingly: `ME
 
 The `target` option indicates the class that contains the `main` method, that is, the entry point to perform the symbolic execution of the desired method.
 
-`heapsolving.symsolve.class` indicates the class that contains the finitization method (the method that defines the scopes for each of the classes and fields involved, in the way a finitization is defined by the `Korat` tool). The finitization takes as argument the provided `symbolic.scope`. Given that the instrumentation of `Java PathFinder` and `SymSolve` often collides and causes errors, we create a copy of the class containing the target program. That is, one of the classes is used by the main method (`target`) and the other is a duplicate that contains the finitization method required by `SymSolve` (`heapsolving.symsolve.class`). **PABLO: Are the `heapsolving.symsolve.class` and `heapsolving.symsolve.predicate` needed for the approaches that do not rely on `SymKorat`?**
+`heapsolving.symsolve.class` indicates the class that contains the finitization method (the method that defines the scopes for each of the classes and fields involved, in the way a finitization is defined by the `Korat` tool). The finitization takes as argument the provided `symbolic.scope`. Given that the instrumentation of `Java PathFinder` and `SymSolve` often collides and causes errors, we create a copy of the class containing the target program. That is, one of the classes is used by the main method (`target`) and the other is a duplicate that contains the finitization method required by `SymSolve` (`heapsolving.symsolve.class`).
 
-All the case studies contains a "Harness" class, with the name ```<ClassName>Harness.java```. In this class, we simply manage the initial structure according to the specified heap solving technique. For example, if the DRIVER technique is being used, we call the driver's structure generator. **PABLO: Esto no se entiende. Hasta acá parecía que target tenía el main, y por lo tanto para mi el harness era el main. Hay que explicar mejor la relación entre `target` que dice arriba que tiene el `main` y harness. Ahora que llegue hasta el final me confunde mas esto porque si entendi bien no hay que definir un harness para correr LISSA. Si es para las otras tecnicas solamente hay que aclararlo.**
+`heapsolving.symsolve.predicate` indicates the name of the method to be used as precondition for the SymSolve based techniques. Both `heapsolving.symsolve.class` and `heapsolving.symsolve.predicate` are needed for all lazy initialization based techniques. That is, all the assessed techniques except for `DRIVER`. This is because we use SymSolve's finitization method to define the bounds for the Lazy Initialization steps.
+
+Given that the techniques `DRIVER` and `IFREPOK` require a special harness to be provided, e.g, `DRIVER` needs a method building structures using insertion routines, all the case studies contains a "Harness" class, with the name `<ClassName>Harness.java`. The purpose of this class is to execute the appropriate harness according to the technique. (The other studied heap solving strategies don't require any harness, just a symbolic instance of the input).
 
 ## Running LISSA on a user provided method
 
