@@ -202,9 +202,9 @@ private void removeBuggy(Entry e) {
 
 Let's call the new case study `mycasestudy`. In the following, we describe the five steps that need to be performed to analyze this code with `LISSA`. 
 
-### Step 1: Create a folder for the new case study, and copy the code to be analyzed to the folder
+### Step 1: Create a folder for the new case study, and copy the target class
 
-First, we create a new folder for the new case study in `src/examples`, in this case with name `mycasestudy`, and copy the class with the method we want to analyze to it. In this example, we will use the existing `LinkedList` class as a starting point (`src/examples/heapsolving/linkedlist/LinkedList.java`) and copy it into the folder for the new case study (`src/examples/mycasestudy`). We then have to change the package name of the class accordingly (to `package mycasestudy;`). This can be done using the following commands:
+First, we create a new folder for the new case study in `src/examples`, in this case with name `mycasestudy`, and copy the class we want to analyze to it. In this example, we will use the existing `LinkedList` class as a starting point (`src/examples/heapsolving/linkedlist/LinkedList.java`) and copy it into the folder for the new case study (`src/examples/mycasestudy`). We then have to change the package name of the class accordingly (to `package mycasestudy;`). This can be done using the following commands:
 
 ```
 mkdir src/examples/mycasestudy
@@ -243,7 +243,7 @@ public static void main(String[] args) {
 
 `main` above creates a symbolic list `structure` and a symbolic integer `key`, calls the target method `removeBuggy` with the symbolic inputs, and verifies that `repOK` holds after the execution of `removeBuggy` using `SymSolve`. During the symbolic execution, the predicate defined in the configuration `heapsolving.symsolve.predicate` will be assumed as precondition, in our example, the `repOK`. This means that `SymSolve` will prune all inputs violating the `repOK`.
 
-To make it easier for the user, the `main` above along with the program under analysis `removeBuggy` is already provided in file `src/examples/snippets/completeSnippet`, and we will append it to the end of `src/examples/mycasestudy/LinkedList.java`.
+To make it easier for the user, the `main` from above along with the program under analysis `removeBuggy` are already provided in the file `src/examples/snippets/completeSnippet`, and we will append it to the end of `src/examples/mycasestudy/LinkedList.java`.
 
 First, remove the last closing bracket `}` of the `LinkedList` class to append the code inside the class:
 ```
