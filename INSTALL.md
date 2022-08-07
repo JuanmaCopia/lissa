@@ -27,7 +27,7 @@ docker run -it lissa:latest /bin/bash
 ```
 **Note:** The experiments in the paper were run on Intel sillicon.
 
-## Mac OS X on Apple sillicon
+## Setup for Mac OS X on Apple sillicon
 
 **Warning:** For `Symbolic Pathfinder` with the `Z3` solver (and thus `LISSA`) to run in Apple sillicon, a Docker container for the amd64 platform must be created (an arm64 container did not work for me). Thus, the container must be run in emulated mode in the Apple CPU, which might produce in a significant performance hit and some issues (see below).
 
@@ -175,7 +175,7 @@ Given that the techniques `DRIVER` and `IFREPOK` require a special harness to be
 
 ## Running LISSA on a user provided method
 
-The easiest way to run `LISSA` for a user provided method is to copy the structure of an existing case study from folder `src/examples`. Let's say we want to a analyse the buggy `removeBuggy` method for `LinkedList` shown below:
+The easiest way to run `LISSA` for a user provided method is to copy the structure of an existing case study from folder `src/examples`. Let's say we want to analyze the buggy `removeBuggy` method for `LinkedList` shown below:
 
 ```
 public boolean removeBuggy(int o) {
@@ -212,11 +212,9 @@ cp src/examples/heapsolving/linkedlist/LinkedList.java src/examples/mycasestudy
 sed -i -E "s/package heapsolving.*/package mycasestudy;/g" src/examples/mycasestudy/LinkedList.java
 ```
 
-Then, add the code of the `removeBuggy` methods above to file `src/examples/mycasestudy/LinkedList.java`. **Habria que instalar nano en la VM para poder editar? O lo proveemos al metodo en algun archivo como con el main?**
+### Step 2: Add the target program and the main entry point
 
-### Step 2: Add a driver method to symbolically execute the target method using LISSA
-
-The second step is to add a driver (`main`) method to `src/examples/mycasestudy/LinkedList.java` symbolically execute `removeBuggy` using `LISSA`. An example `main` is shown below:
+The second step is to add target program `removeBuggy` and the main entry point (`main`) method to `src/examples/mycasestudy/LinkedList.java` to symbolically execute `removeBuggy` using `LISSA`. An example `main` is shown below:
 
 ```
 public static void main(String[] args) {
@@ -228,11 +226,11 @@ public static void main(String[] args) {
 	if (structure != null) {
 		try {
 			// Execute method under analysis with symbolic input structure `structure` and symbolic integer `key`
+			// The assumed precondition is the one defined in the configuration: heapsolving.symsolve.predicate
+			// in this case, "repOK".
 			structure.removeBuggy(key);
 		} catch (Exception e) {
 		}
-
-		// PABLO: The precondition is assumed to always be repOK? If true this must be stated in a comment of this method.
 
 		// Call this method if you want LISSA to report the number of explored paths
 		SymHeap.countPath();
@@ -243,20 +241,24 @@ public static void main(String[] args) {
 }
 ```
 
-`main` above creates a symbolic list `structure` and a symbolic integer `key`, calls the target method `removeBuggy` with the symbolic inputs, and verifies that `repOK` holds after the execution of `removeBuggy` using `SymSolve`. **PABLO: Falta algo de la pre**
+`main` above creates a symbolic list `structure` and a symbolic integer `key`, calls the target method `removeBuggy` with the symbolic inputs, and verifies that `repOK` holds after the execution of `removeBuggy` using `SymSolve`. During the symbolic execution, the predicate defined in the configuration `heapsolving.symsolve.predicate` will be assumed as precondition, in our example, the `repOK`. This means that `SymSolve` will prune all inputs violating the `repOK`.
 
-To make it easier for the user, the `main` above is already provided in file `src/examples/exampleMain`, and we will append it to the end of `src/examples/mystudycase/LinkedList.java` with the following commands:
+To make it easier for the user, the `main` above along with the program under analysis `removeBuggy` is already provided in file `src/examples/snippets/completeSnippet`, and we will append it to the end of `src/examples/mycasestudy/LinkedList.java`.
 
+First, remove the last closing bracket `}` of the `LinkedList` class to append the code inside the class:
 ```
-sed -i '$d' src/examples/mycasestudy/LinkedList.java
-sed -i '$d' src/examples/mycasestudy/LinkedList.java PABLO: Cual es el proposito de estos comandos sed? Habria que aclararlo en un comentario porque no me parece que sean evidentes (con los de abajo me parece que alcanzaria). Estan duplicados por alguna razon?
-cat src/examples/exampleMain >> src/examples/mycasestudy/LinkedList.java
-printf "\n}\n" >> src/examples/mycasestudy/LinkedList.java
+head -n -2 src/examples/mycasestudy/LinkedList.java > tmp
+mv tmp src/examples/mycasestudy/LinkedList.java
+```
+
+Then, append the provided code snippet:
+```
+cat src/examples/snippets/completeSnippet >> src/examples/mycasestudy/LinkedList.java
 ```
 
 ### Step 3: Create a finitization to define the scopes of the analysis
 
-For this step we use the existing `LinkedList` finitization defined in `src/examples/linkedlist/symsolve/LinkedList.java`. To learn to define your own finitization check `Korat`'s documentation **PABLO: Agregar un link a la documentacion o al codigo de korat.**. We'll put the finitization in a `symsolve` folder inside `src/examples/mycasestudy`. We then change the package of the newly created finitization to `package mystudycase.symsolve;`. This step can be done using the following commands:
+For this step we use the existing `LinkedList` finitization defined in `src/examples/linkedlist/symsolve/LinkedList.java`. We'll put the finitization in a `symsolve` folder inside `src/examples/mycasestudy`. We then change the package of the newly created finitization to `package mycasestudy.symsolve;`. This step can be done using the following commands:
 
 ```
 mkdir src/examples/mycasestudy/symsolve
@@ -273,7 +275,7 @@ sourcepath=${jpf-symbc}/src/examples
 
 # ---------------   Arguments   ---------------
 
-target = mystudycase.LinkedList
+target = mycasestudy.LinkedList
 method = removeBuggy
 
 symbolic.debug = false
@@ -289,9 +291,9 @@ listener = gov.nasa.jpf.symbc.heap.solving.HeapSolvingListener
 # ---------------------------------------------
 ```
 
-To make it easier, we provide this config file in `jpf-symbc/src/examples/exampleConfig`. We'll copy it with the following command:
+To make it easier, we provide this config file in `jpf-symbc/src/examples/snippets/exampleConfig`. We'll copy it with the following command:
 ```
-cat src/examples/exampleConfig > src/examples/mycasestudy/LinkedList.jpf
+cat src/examples/snippets/exampleConfig > src/examples/mycasestudy/LinkedList.jpf
 ```
 
 The folder for the case study should look as follows:
@@ -323,18 +325,18 @@ Below is an excerpt with the relevant parts of `LISSA`'s output:
 ====================================================== system under test
 mycasestudy.LinkedList.main()
 
-====================================================== search started: 8/4/22 4:09 PM
+====================================================== search started: 8/7/22 1:21 PM
 
 ====================================================== error 1
 gov.nasa.jpf.vm.NoUncaughtExceptionsProperty
 java.lang.AssertionError
-	at mycasestudy.LinkedList.main(LinkedList.java:468)
+	at mycasestudy.LinkedList.main(LinkedList.java:492)
 
 
 ====================================================== snapshot #1
 thread java.lang.Thread:{id:0,name:main,status:RUNNING,priority:5,isDaemon:false,lockCount:0,suspendCount:0}
   call stack:
-	at mycasestudy.LinkedList.main(LinkedList.java:468)
+	at mycasestudy.LinkedList.main(LinkedList.java:492)
 
 
  --------  LISSA Finished for LinkedList.removeBuggy Scope 4  --------
@@ -348,52 +350,6 @@ thread java.lang.Thread:{id:0,name:main,status:RUNNING,priority:5,isDaemon:false
 
 ====================================================== results
 error #1: gov.nasa.jpf.vm.NoUncaughtExceptionsProperty "java.lang.AssertionError  at mycasestudy.LinkedLis..."
-
-====================================================== statistics
-elapsed time:       00:00:00
 ```
-** PABLO: Actualizar con el output real, no lo puedo correr facilmente en mi PC nueva**
 
 The output indicates that the assertion of `repOK` (postcondition) in the `main` method fails, thus revealing the error in `removeBuggy`.
-
-
-# Implementation details of related approaches
-
-**Pablo: Lo de LISSA y SymSolve ya está explicado arriba en detalle. Acá habría que quitar todo el texto que habla de LISSA y SymSolve y dar un ejemplo de un main de un IFREPOK, un DRIVER y quizás hasta un LIHYBRID, y explicar que significa cada cosa en los mains. Esto lo ponemos al final porque los reviewers que no estén interesados lo pueden ignorar, y sólo evaluar reproducibilidad y usabilidad de lissa para poner las badges (creo que la mayoría va a hacer eso). O directamente se puede omitir esta parte si no llegamos con el tiempo.
-
-Below there is an example of the `main` method to perform symbolic execution of the `add` method from `LinkedList`:
-
-```
-public class LinkedListMain {
-
-	public static void main(String[] args) {
-		int key = SymHeap.makeSymbolicInteger("INPUT_KEY");
-
-		LinkedList structure = LinkedListHarness.getStructure();
-		if (structure != null) {
-			try {
-				// Call to method under analysis
-				structure.add(key);
-			} catch (Exception e) {
-			}
-
-			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.repOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the add method adds a new node, we need to use a finitization with
-				// increased size, "propertyCheckFinLinkedList" defined in
-				// heapsolving.linkedlist.symsolve.LinkedList
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
-			}
-
-		}
-	}
-}
-```
-
-Note that after the symbolic execution of the method, we perform the property assertion. ~~In case the technique is based on SymSolve (LISSA, LISSAM and LISSANOSB), we check the property using SymSolve. In this example, as the method add increases the size of the structure by adding a new node, we use a finitization with a the scope increased by one node, to be able to correctly encode the structure. This finitization is defined in the same class as the other, in this case in ```heapsolving.linkedlist.symsolve.LinkedList```. ~~.
-
-

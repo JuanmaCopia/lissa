@@ -3,15 +3,15 @@ sourcepath=${jpf-symbc}/src/examples
 
 # ---------------   Arguments   ---------------
 
-target = mystudycase.LinkedList
-method = remove
+target = mycasestudy.LinkedList
+method = removeBuggy
 
 symbolic.debug = false
 symbolic.scope = 4
 symbolic.dp = z3
 
 heapsolving.strategy = LISSA
-heapsolving.symsolve.class = mystudycase.symsolve.LinkedList
+heapsolving.symsolve.class = mycasestudy.symsolve.LinkedList
 heapsolving.symsolve.predicate = repOK
 
 listener = gov.nasa.jpf.symbc.heap.solving.HeapSolvingListener

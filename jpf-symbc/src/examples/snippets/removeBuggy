@@ -1,0 +1,21 @@
+
+public boolean removeBuggy(int o) {
+	for (Entry e = header.next; e != header; e = e.next) {
+		if (o == e.element) {
+			removeBuggy(e);
+			return true;
+		}
+	}
+	return false;
+}
+
+private void removeBuggy(Entry e) {
+	if (e == header) {
+		throw new NoSuchElementException();
+	}
+
+	e.previous.next = e.next;
+	// e.next.previous = e.previous;  // Original line
+	e.next.previous = null;           // Induced defect!!
+	size--;
+}

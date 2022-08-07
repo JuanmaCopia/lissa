@@ -1,0 +1,45 @@
+
+	public boolean removeBuggy(int o) {
+		for (Entry e = header.next; e != header; e = e.next) {
+			if (o == e.element) {
+				removeBuggy(e);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void removeBuggy(Entry e) {
+		if (e == header) {
+			throw new NoSuchElementException();
+		}
+
+		e.previous.next = e.next;
+		// e.next.previous = e.previous;
+		e.next.previous = null;     // Induced defect!!
+		size--;
+	}
+
+	public static void main(String[] args) {
+
+		int key = SymHeap.makeSymbolicInteger("INPUT_KEY");
+		LinkedList structure = new LinkedList();
+		structure = (LinkedList) SymHeap.makeSymbolicRefThis("linkedlist_0", structure);
+
+		if (structure != null) {
+			try {
+				// Execute method under analysis with symbolic input structure `structure` and symbolic integer `key`
+				// The assumed precondition is the one defined in the configuration: heapsolving.symsolve.predicate
+				// in this case, "repOK".
+				structure.removeBuggy(key);
+			} catch (Exception e) {
+			}
+
+			// Call this method if you want LISSA to report the number of explored paths
+			SymHeap.countPath();
+
+			// Assert postcondition:
+			assert (SymHeap.assertPropertyWithSymSolve("repOK", structure));
+		}
+	}
+}

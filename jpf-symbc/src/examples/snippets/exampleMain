@@ -1,0 +1,23 @@
+
+public static void main(String[] args) {
+
+	int key = SymHeap.makeSymbolicInteger("INPUT_KEY");
+	LinkedList structure = new LinkedList();
+	structure = (LinkedList) SymHeap.makeSymbolicRefThis("linkedlist_0", structure);
+
+	if (structure != null) {
+		try {
+			// Execute method under analysis with symbolic input structure `structure` and symbolic integer `key`
+			// The assumed precondition is the one defined in the configuration: heapsolving.symsolve.predicate
+			// in this case, "repOK".
+			structure.removeBuggy(key);
+		} catch (Exception e) {
+		}
+
+		// Call this method if you want LISSA to report the number of explored paths
+		SymHeap.countPath();
+
+		// Assert postcondition:
+		assert (SymHeap.assertPropertyWithSymSolve("repOK", structure));
+	}
+}
