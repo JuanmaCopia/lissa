@@ -51,15 +51,15 @@ docker run --platform linux/amd64 -it lissa:latest /bin/bash
 
 ## Running a single experiment
 
-**PABLO: Hay que cambiar run_study_case por run_case_study, y study case por case study, en todos lados. Estoy casi seguro que study case no existe (o al menos no se usa)**
-To easily run a single technique over a case study we provide the `run_study_case.sh` script. It takes the following arguments:
+**PABLO: Hay que cambiar run_case_study por run_case_study, y study case por case study, en todos lados. Estoy casi seguro que study case no existe (o al menos no se usa)**
+To easily run a single technique over a case study we provide the `run_case_study.sh` script. It takes the following arguments:
 ```
-bash run_study_case.sh <class_name> <method_name> <max_scope> <strategy>
+bash run_case_study.sh <class_name> <method_name> <max_scope> <strategy>
 ```
 
 For example, to analyze `LinkedList`'s `remove` method using `LISSA`, with up to a maximum of `4` nodes in the lists, execute: 
 ```
-bash run_study_case.sh LinkedList remove 4 LISSA
+bash run_case_study.sh LinkedList remove 4 LISSA
 ```
 
 The results are shown on the screen, and stored in CSV format in file: ```output/results<CLASS_NAME>-results.csv ```.
@@ -164,7 +164,7 @@ listener = gov.nasa.jpf.symbc.heap.solving.HeapSolvingListener
 # ---------------------------------------------
 ```
 
-The `run_study_case.sh` script modifies the configuration files accordingly: `METHOD` is replaced by the name of the method to be analyzed, `MAX_SCOPE` by the intended experiment scope, and `HEAP_SOLVING_STRATEGY` by the symbolic execution approach to be employed (e.g. `LISSA`, `IFREPOK`, etc).
+The `run_case_study.sh` script modifies the configuration files accordingly: `METHOD` is replaced by the name of the method to be analyzed, `MAX_SCOPE` by the intended experiment scope, and `HEAP_SOLVING_STRATEGY` by the symbolic execution approach to be employed (e.g. `LISSA`, `IFREPOK`, etc).
 
 The `target` option indicates the class that contains the `main` method, that is, the entry point to perform the symbolic execution of the desired method.
 
