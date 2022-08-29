@@ -47,6 +47,35 @@ docker run --platform linux/amd64 -it lissa:latest /bin/bash
 
 [0] https://docs.docker.com/desktop/multi-arch/
 
+
+## Folder structure
+
+`jpf-symbc` folder contains a modified version of Symbolic PathFinder in which we implement our approach.
+
+The `jpf-core` folder includes the version of Java PathFinder Model Checker [0] in which Symbolic PathFinder is based upon.
+
+The folder `symsolve` contains the source files of `SymSolve`, our solver for partially symbolic structures.
+
+[0] https://github.com/corinus/jpf-core
+
+## Folder structure of a case study
+
+The source files of the case studies can be found in: `jpf-symbc/src/examples/heapsolving`. Each case study have the following files and folders:
+
+```
+├── <ClassName>.java             --> The java class that contains the methods under test
+├── <ClassName>.jpf              --> The configuration file
+├── <ClassName>Harness.java      --> A Harness necessary to run techniques that require perform previous actions before SUT's execution (IFREPOK and DRIVER).
+├── <method 1>                   --> A folder for each of the SUTs, containing the main entry for the SUT
+│   └── <ClassName>Main.java     --> A java class that contains the main entry that calls SUT
+├── <method 2>
+│   └── <ClassName>Main.java
+├── <method 3>
+│   └── <ClassName>Main.java
+└── symsolve
+    └── <ClassName>.java        --> A java class containing the finitization method 
+```
+
 # Reproducing the experiments
 
 ## Running a single experiment
@@ -114,6 +143,37 @@ bash run_all.sh
 Tables 1 and 2 in the paper can be generated after processing the results of this script.
 
 **Important:** This might take months to finish!
+
+## Undestanding the output of the analysis
+
+When the analysis of a program finishes, the metrics of that execution are stored under `jpf-symbc/output/results<CLASS_NAME>-results.csv`, where `<CLASS_NAME>` is the name of the class containing the method under analysis.
+Each run appends a new line to the `.csv` file, with the following data:
+
+```
+<MethodName>, <Technique>, <Scope>, <TotalTime>, <SolvingTime>, <NumberOfPaths>, <SpuriousPaths>, <CacheHits>
+```
+
+For example, The following `.csv` file shows the results of the analysis of the remove method from `LinkedList` for all techniques with a maximum scope of 3: 
+```
+remove, LIHYBRID, 1, 0, 0, 1, 0, 0
+remove, LIHYBRID, 2, 0, 0, 4, 1, 0
+remove, LIHYBRID, 3, 1, 0, 23, 17, 0
+remove, DRIVER, 1, 0, 0, 3, 0, 0
+remove, DRIVER, 2, 0, 0, 6, 0, 0
+remove, DRIVER, 3, 0, 0, 10, 0, 0
+remove, IFREPOK, 1, 0, 0, 1, 0, 0
+remove, IFREPOK, 2, 0, 0, 3, 0, 0
+remove, IFREPOK, 3, 0, 0, 6, 0, 0
+remove, LISSA, 1, 0, 0, 1, 0, 0
+remove, LISSA, 2, 0, 0, 3, 0, 0
+remove, LISSA, 3, 0, 0, 6, 0, 0
+remove, LISSAM, 1, 0, 0, 1, 0, 0
+remove, LISSAM, 2, 0, 0, 3, 0, 0
+remove, LISSAM, 3, 0, 0, 6, 0, 0
+remove, LISSANOSB, 1, 0, 0, 1, 0, 0
+remove, LISSANOSB, 2, 0, 0, 3, 0, 0
+remove, LISSANOSB, 3, 0, 0, 6, 0, 0
+```
 
 ## Note: Analysis of postconditions
 

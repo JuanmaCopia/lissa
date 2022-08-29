@@ -8,36 +8,8 @@ To favor reproducibility of the experiments and comparison with existing and fut
 
 For instructions on installing and executing `LISSA`, and for reproducing the experiments in the paper, please refer to `INSTALL.md`.
 
-## Folder structure
-
-`jpf-symbc` folder contains a modified version of Symbolic PathFinder in which we implement our approach.
-
-The `jpf-core` folder includes the version of Java PathFinder Model Checker [2] in which Symbolic PathFinder is based upon.
-
-The folder `symsolve` contains the source files of `SymSolve`, our solver for partially symbolic structures.
-
-## Folder structure of a case study
-
-The source files of the case studies can be found in: `jpf-symbc/src/examples/heapsolving`. Each case study have the following files and folders:
-
-```
-├── <ClassName>.java             --> The java class that contains the methods under test
-├── <ClassName>.jpf              --> The configuration file
-├── <ClassName>Harness.java      --> A Harness necessary to run techniques that require perform previous actions before SUT's execution (IFREPOK and DRIVER).
-├── <method 1>                   --> A folder for each of the SUTs, containing the main entry for the SUT
-│   └── <ClassName>Main.java     --> A java class that contains the main entry that calls SUT
-├── <method 2>
-│   └── <ClassName>Main.java
-├── <method 3>
-│   └── <ClassName>Main.java
-└── symsolve
-    └── <ClassName>.java        --> A java class containing the finitization method 
-```
-
 # References
 
 [0] https://github.com/SymbolicPathFinder/jpf-symbc
 
 [1] http://korat.sourceforge.net
-
-[2] https://github.com/corinus/jpf-core
