@@ -90,7 +90,7 @@ For example, to analyze `LinkedList`'s `remove` method using `LISSA`, with up to
 bash run_case_study.sh LinkedList remove 4 LISSA
 ```
 
-The results are shown on the screen, and stored in CSV format in file: ```output/results<CLASS_NAME>-results.csv ```.
+The results are shown on the screen, and stored in CSV format in file: ```output/results/<CLASS_NAME>-results.csv ```.
 
 ## Available classes and techniques
 
@@ -146,7 +146,7 @@ Tables 1 and 2 in the paper can be generated after processing the results of thi
 
 ## Undestanding the output of the analysis
 
-When the analysis of a program finishes, the metrics of that execution are stored under `jpf-symbc/output/results<CLASS_NAME>-results.csv`, where `<CLASS_NAME>` is the name of the class containing the method under analysis.
+When the analysis of a program finishes, the metrics of that execution are stored under `jpf-symbc/output/results/<CLASS_NAME>-results.csv`, where `<CLASS_NAME>` is the name of the class containing the method under analysis.
 Each run appends a new line to the `.csv` file, with the following data:
 
 ```
@@ -174,6 +174,8 @@ remove, LISSANOSB, 1, 0, 0, 1, 0, 0
 remove, LISSANOSB, 2, 0, 0, 3, 0, 0
 remove, LISSANOSB, 3, 0, 0, 6, 0, 0
 ```
+
+The complete output for the `LinkedList` experiments can be found in `jpf-symbc/example-output/LinkedList-results.csv`.
 
 ## Note: Analysis of postconditions
 
