@@ -27,17 +27,6 @@ public class TreeMapMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.isBinTreeWithParentReferences());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the put method adds a new node, we need to use a finitization with
-				// increased size, "propertyCheckFinTreeMap" defined in heapsolving.treemap.symsolve.TreeMap
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("isBinTreeWithParentReferences", structure));
-			}
-
-
 		}
 	}
 

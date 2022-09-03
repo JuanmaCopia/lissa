@@ -27,18 +27,6 @@ public class SQLFilterClausesMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.repOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the addField method increases the structure size, we need to use a
-				// finitization with increased size, "propertyCheckFinSQLFilterClauses" defined in
-				// heapsolving.sqlfilterclauses.symsolve.SQLFilterClauses
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
-			}
-
-
 		}
 	}
 

@@ -25,15 +25,6 @@ public class TreeMapMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.isBinTreeWithParentReferences());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				assert (SymHeap.assertPropertyWithSymSolve("isBinTreeWithParentReferences", structure));
-			}
-
-
 		}
 	}
 

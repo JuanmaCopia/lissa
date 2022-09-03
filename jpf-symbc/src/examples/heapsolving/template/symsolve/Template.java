@@ -74,9 +74,5 @@ public class Template {
 
 		return f;
 	}
-	
-	public static IFinitization propertyCheckFinTemplate(int nodesNum) {
-		return finTemplate(nodesNum + 1);
-	}
 
 }

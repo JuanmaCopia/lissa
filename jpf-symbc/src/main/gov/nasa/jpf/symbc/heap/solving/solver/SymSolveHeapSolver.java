@@ -36,13 +36,6 @@ public class SymSolveHeapSolver {
         return result;
     }
 
-    public boolean assertProperty(SymSolveVector vector, String propertyMethodName, boolean useSpecialFinitization) {
-    	long time = System.currentTimeMillis();
-        boolean result = solver.assertProperty(vector, propertyMethodName, useSpecialFinitization);
-        solvingTime += (System.currentTimeMillis() - time);
-        return result;
-    }
-
     public boolean isSatisfiableAutoHybridRepOK(SymSolveVector vector) {
         return solver.isSatAutoHybridRepOK(vector);
     }
@@ -53,10 +46,6 @@ public class SymSolveHeapSolver {
 
     public CVElem[] getVectorFormat() {
         return solver.getVectorFormat();
-    }
-    
-    public CVElem[] getPropertyCheckerVectorFormat() {
-        return solver.getSpecialPropertyCheckerVectorFormat();
     }
 
     public long getSolvingTime() {

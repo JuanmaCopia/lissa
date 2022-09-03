@@ -11,7 +11,6 @@ import gov.nasa.jpf.symbc.heap.solving.techniques.DRIVER;
 import gov.nasa.jpf.symbc.heap.solving.techniques.IFREPOK;
 import gov.nasa.jpf.symbc.heap.solving.techniques.LIHYBRID;
 import gov.nasa.jpf.symbc.heap.solving.techniques.LISSA;
-import gov.nasa.jpf.symbc.heap.solving.techniques.LISSAM;
 import gov.nasa.jpf.symbc.heap.solving.techniques.SolvingStrategy;
 import gov.nasa.jpf.symbc.heap.symbolicinput.SymbolicReferenceInput;
 import gov.nasa.jpf.symbc.numeric.Comparator;
@@ -198,62 +197,6 @@ public class JPF_gov_nasa_jpf_symbc_SymHeap extends NativePeer {
         String name = env.getStringObject(stringRef);
         env.setReturnAttribute(new StringSymbolic(name));
         return env.newString("WWWWW's Birthday is 12-17-77");
-    }
-
-
-    @MJI
-    public static void printOutputVector(MJIEnv env, int objRef, int objvRef) {
-    	if (objvRef == MJIEnv.NULL)
-            throw new RuntimeException("## Error: null object");
-    	SolvingStrategy strategy = HeapSolvingInstructionFactory.getSolvingStrategy();
-    	if (strategy instanceof LISSA) {
-    		LISSA lissaStrategy = (LISSA) strategy;
-//    		lissaStrategy.printOutputVector();
-    		lissaStrategy.printOutputVector(objvRef);
-    		System.out.println("\n\n");
-    	} else if (strategy instanceof LISSAM) {
-    		LISSAM lissaStrategy = (LISSAM) strategy;
-//    		lissaStrategy.printOutputVector();
-    		lissaStrategy.printOutputVector(objvRef);
-    		System.out.println("\n\n");
-    	}
-    }
-
-
-    @MJI
-    public static boolean assertPropertyWithSymSolve(MJIEnv env, int objRef, int stringRef, int objvRef) {
-    	if (objvRef == MJIEnv.NULL)
-            throw new RuntimeException("## Error: null object");
-
-    	String propertyMethodName = env.getStringObject(stringRef);
-
-    	SolvingStrategy strategy = HeapSolvingInstructionFactory.getSolvingStrategy();
-    	if (strategy instanceof LISSA) {
-    		LISSA lissaStrategy = (LISSA) strategy;
-    		return lissaStrategy.assertProperty(objvRef, propertyMethodName, false);
-    	}
-
-    	assert(strategy instanceof LISSAM);
-    	LISSAM lissamStrategy = (LISSAM) strategy;
-    	return lissamStrategy.assertProperty(objvRef, propertyMethodName, false);
-    }
-    
-    @MJI
-    public static boolean assertPropertyWithSymSolveUsePropFinitization(MJIEnv env, int objRef, int stringRef, int objvRef) {
-    	if (objvRef == MJIEnv.NULL)
-            throw new RuntimeException("## Error: null object");
-
-    	String propertyMethodName = env.getStringObject(stringRef);
-
-    	SolvingStrategy strategy = HeapSolvingInstructionFactory.getSolvingStrategy();
-    	if (strategy instanceof LISSA) {
-    		LISSA lissaStrategy = (LISSA) strategy;
-    		return lissaStrategy.assertProperty(objvRef, propertyMethodName, true);
-    	}
-
-    	assert(strategy instanceof LISSAM);
-    	LISSAM lissamStrategy = (LISSAM) strategy;
-    	return lissamStrategy.assertProperty(objvRef, propertyMethodName, true);
     }
 
 }

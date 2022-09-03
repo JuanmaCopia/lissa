@@ -30,18 +30,6 @@ public class TemplateMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.repOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the addParameter method increases the structure size, we need to use a
-				// finitization with increased size, "propertyCheckFinTemplate" defined in
-				// heapsolving.template.symsolve.Template
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
-			}
-
-
 		}
 	}
 

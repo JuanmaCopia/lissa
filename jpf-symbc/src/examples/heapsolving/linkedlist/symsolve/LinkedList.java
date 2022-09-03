@@ -24,10 +24,6 @@ public class LinkedList {
 		return f;
 	}
 
-	public static IFinitization propertyCheckFinLinkedList(int nodesNum) {
-		return finLinkedList(nodesNum + 1);
-	}
-
 	public boolean repOK() {
 		if (header == null)
 			return false;

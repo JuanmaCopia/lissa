@@ -30,18 +30,6 @@ public class CombatantStatisticMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.repOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the put method adds a new node, we need to use a finitization with
-				// increased size, "propertyCheckFinHashMap" defined in
-				// heapsolving.hashmap.symsolve.HashMap
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
-			}
-
-
 		}
 	}
 

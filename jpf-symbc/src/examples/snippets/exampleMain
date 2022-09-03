@@ -18,6 +18,6 @@ public static void main(String[] args) {
 		SymHeap.countPath();
 
 		// Assert postcondition:
-		assert (SymHeap.assertPropertyWithSymSolve("repOK", structure));
+		assert (structure.repOK());
 	}
 }

@@ -31,18 +31,6 @@ public class DictionaryInfoMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.areTreesOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the addField method increases the structure size, we need to use a
-				// finitization with increased size, "propertyCheckFinTreeMap" defined in
-				// heapsolving.dictionaryinfo.symsolve.DictionaryInfo
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("areTreesOK", structure));
-			}
-
-
 		}
 	}
 

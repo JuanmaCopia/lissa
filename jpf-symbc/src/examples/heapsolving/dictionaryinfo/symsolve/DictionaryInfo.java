@@ -40,10 +40,6 @@ public class DictionaryInfo {
 		return f;
 	}
 
-	public static IFinitization propertyCheckFinDictionaryInfo(int nodesNum) {
-		return finDictionaryInfo(nodesNum + 1);
-	}
-
 	public boolean repOK() {
 		if (fieldsByTagNumber == null)
 			return false;

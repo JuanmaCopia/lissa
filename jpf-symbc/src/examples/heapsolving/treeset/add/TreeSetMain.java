@@ -26,19 +26,6 @@ public class TreeSetMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.isBinTreeWithParentReferences());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the add method adds a new node, we need to use a finitization with
-				// increased size, "propertyCheckFinTreeSet" defined in
-				// heapsolving.treeset.symsolve.TreeSet
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("isBinTreeWithParentReferences",
-						structure));
-			}
-
-
 		}
 	}
 

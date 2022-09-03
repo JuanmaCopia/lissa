@@ -45,10 +45,6 @@ public class Schedule {
 		return f;
 	}
 
-	public static IFinitization propertyCheckFinSchedule(int jobsNum) {
-		return finSchedule(jobsNum + 1);
-	}
-
 	public boolean repOK() {
 		if (prio_1 == null)
 			return false;

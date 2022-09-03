@@ -27,18 +27,6 @@ public class LinkedListMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.repOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the add method adds a new node, we need to use a finitization with
-				// increased size, "propertyCheckFinLinkedList" defined in
-				// heapsolving.linkedlist.symsolve.LinkedList
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
-			}
-
-
 		}
 	}
 

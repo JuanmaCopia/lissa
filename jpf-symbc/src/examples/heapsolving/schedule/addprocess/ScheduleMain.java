@@ -27,18 +27,6 @@ public class ScheduleMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.repOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the addProcess method adds a new node, we need to use a finitization with
-				// increased size, "propertyCheckFinSchedule" defined in
-				// heapsolving.schedule.symsolve.Schedule
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("repOK", structure));
-			}
-
-
 		}
 	}
 

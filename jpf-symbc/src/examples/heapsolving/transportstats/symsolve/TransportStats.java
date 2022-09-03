@@ -37,10 +37,6 @@ public class TransportStats {
 		return f;
 	}
 
-	public static IFinitization propertyCheckFinTransportStats(int nodesNum) {
-		return finTransportStats(nodesNum + 1);
-	}
-
 	public boolean repOK() {
 		HashSet<TreeMap> visited_tm = new HashSet<TreeMap>();
 		if (read_sizes != null)

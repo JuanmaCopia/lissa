@@ -27,15 +27,6 @@ public class LinkedListMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.repOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				assert (SymHeap.assertPropertyWithSymSolve("repOK", structure));
-			}
-
-
 		}
 	}
 

@@ -69,10 +69,6 @@ public class HashMap {
 
         return f;
     }
-    
-    public static IFinitization propertyCheckFinHashMap(int nodesNum) {
-    	return finHashMap(nodesNum + 1);
-    }
 
     Entry getTable(int index) {
         switch (index) {

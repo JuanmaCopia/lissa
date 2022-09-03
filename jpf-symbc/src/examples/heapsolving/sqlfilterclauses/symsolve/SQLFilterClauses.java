@@ -75,10 +75,6 @@ public class SQLFilterClauses {
 		return f;
 	}
 	
-	public static IFinitization propertyCheckFinSQLFilterClauses(int nodesNum) {
-    	return finSQLFilterClauses(nodesNum + 1);
-    }
-
 	public boolean repOK() {
 		if (_sqlClauseInformation == null)
 			return true;

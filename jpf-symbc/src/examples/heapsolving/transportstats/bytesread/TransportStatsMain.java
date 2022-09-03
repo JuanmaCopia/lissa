@@ -26,17 +26,6 @@ public class TransportStatsMain {
 			}
 
 			SymHeap.countPath();
-
-            // Property Assertion:
-			if (SymHeap.usingIfRepOKStrategy() || SymHeap.usingDriverStrategy())
-				assert (structure.areTreesOK());
-			else if (SymHeap.usingSymSolveBasedStrategy()) {
-				// Given that the bytesRead method adds a new node, we need to use a finitization with
-				// increased size, "propertyCheckFinTransportStats" defined in heapsolving.transportstats.symsolve.TransportStats
-				assert (SymHeap.assertPropertyWithSymSolveUsePropFinitization("areTreesOK", structure));
-			}
-
-
 		}
 	}
 

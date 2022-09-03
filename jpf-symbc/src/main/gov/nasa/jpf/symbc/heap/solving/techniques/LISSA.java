@@ -20,7 +20,7 @@ public class LISSA extends SolvingStrategy {
     public LISSA(ConfigParser config) {
     	this.config = config;
         heapSolver = new SymSolveHeapSolver();
-        canonicalizer = new Canonicalizer(heapSolver.getVectorFormat(), heapSolver.getPropertyCheckerVectorFormat());
+        canonicalizer = new Canonicalizer(heapSolver.getVectorFormat());
     }
 
     @Override
@@ -38,17 +38,6 @@ public class LISSA extends SolvingStrategy {
 	@Override
 	public long getSolvingTime() {
 		return heapSolver.getSolvingTime();
-	}
-
-	public void printOutputVector(int rootIndex) {
-    	SymSolveVector vector = canonicalizer.createPropertyCheckVector(rootIndex, true);
-    	System.out.println("\n OutputVector: \n");
-    	System.out.println(vector);
-    }
-
-	public boolean assertProperty(int rootIndex, String propertyMethodName, boolean usePropertyFinitization) {
-		SymSolveVector vector = canonicalizer.createPropertyCheckVector(rootIndex, usePropertyFinitization);
-		return heapSolver.assertProperty(vector, propertyMethodName, usePropertyFinitization);
 	}
 
 }

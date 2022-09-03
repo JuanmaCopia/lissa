@@ -39,7 +39,7 @@
 			SymHeap.countPath();
 
 			// Assert postcondition:
-			assert (SymHeap.assertPropertyWithSymSolve("repOK", structure));
+			assert (structure.repOK());
 		}
 	}
 }

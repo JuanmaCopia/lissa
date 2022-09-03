@@ -52,10 +52,6 @@ public class CombatantStatistic {
 
 		return f;
 	}
-	
-	public static IFinitization propertyCheckFinCombatantStatistic(int nodesNum) {
-		return finCombatantStatistic(nodesNum + 1);
-	}
 
 	public boolean repOK() {
 		if (allData == null)

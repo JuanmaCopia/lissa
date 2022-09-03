@@ -22,10 +22,6 @@ public class TreeSet {
         f.set(TreeMap.Entry.class, "color", f.createBooleanSet());
         return f;
     }
-    
-    public static IFinitization propertyCheckFinTreeSet(int nodesNum) {
-		return finTreeSet(nodesNum + 1);
-	}
 
     public boolean repOK() {
         if (m == null)
