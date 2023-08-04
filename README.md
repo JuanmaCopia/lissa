@@ -1,5 +1,7 @@
 # LISSA: Lazy Initialization with Specialized Solver Aid
 
+**This repository is deprecated!** an updated version can be found in: https://github.com/JuanmaCopia/spf-pli
+
 `LISSA` is an efficient symbolic execution approach for programs that manipulate complex heap-allocated data structures with rich structural constraints. This repository includes the `LISSA` implementation and the artifact for the paper "LISSA: Lazy Initialization with Specialized Solver Aid", accepted for publication in ASE 2022.
 
 `LISSA`'s implementation is based on the symbolic execution engine of the `Symbolic (Java) PathFinder` tool [0]. `LISSA` employs a novel solver, called `SymSolve`, to detect spurious partially symbolic structures generated during lazy initialization, and prune their corresponding spurious paths. `SymSolve`'s implementation is based on the `Korat` bounded exhaustive test generation tool [1]. 
